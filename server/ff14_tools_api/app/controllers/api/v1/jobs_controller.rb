@@ -1,6 +1,7 @@
 module Api
   module V1
-    class JobsController < ApplicationController
+    class JobsController < AdminApiController
+      before_action :require_admin, only: [:create, :update, :destroy]
       before_action :set_job, only: %i[ show update destroy ]
 
       # GET /jobs

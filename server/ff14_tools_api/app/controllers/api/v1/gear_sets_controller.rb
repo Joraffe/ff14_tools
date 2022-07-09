@@ -1,6 +1,6 @@
 module Api
   module V1
-    class GearSetsController < ApplicationController
+    class GearSetsController < BasicApiController
       before_action :set_gear_set, only: %i[ show update destroy ]
 
       # GET /gear_sets

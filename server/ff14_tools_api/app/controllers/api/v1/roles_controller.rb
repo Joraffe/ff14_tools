@@ -1,6 +1,7 @@
 module Api
   module V1
-    class RolesController < ApplicationController
+    class RolesController < AdminApiController
+      before_action :require_admin, only: [:create, :update, :destroy]
       before_action :set_role, only: %i[ show update destroy ]
 
       # GET /roles
@@ -49,7 +50,7 @@ module Api
         # Only allow a list of trusted parameters through.
         def role_params
           params.require(:role).permit(:name)
-        end
+        end 
     end
   end
 end

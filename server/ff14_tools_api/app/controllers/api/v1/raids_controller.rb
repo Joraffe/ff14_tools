@@ -1,6 +1,7 @@
 module Api
   module V1
-    class RaidsController < ApplicationController
+    class RaidsController < AdminApiController
+      before_action :require_admin, only: [:create, :update, :destroy]
       before_action :set_raid, only: %i[ show update destroy ]
 
       # GET /raids

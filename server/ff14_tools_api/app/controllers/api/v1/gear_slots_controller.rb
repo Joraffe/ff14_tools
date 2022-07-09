@@ -1,6 +1,7 @@
 module Api
   module V1
-    class GearSlotsController < ApplicationController
+    class GearSlotsController < AdminApiController
+      before_action :require_admin, only: [:create, :update, :destroy]
       before_action :set_gear_slot, only: %i[ show update destroy ]
 
       # GET /gear_slots

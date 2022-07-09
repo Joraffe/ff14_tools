@@ -1,11 +1,12 @@
 module Api
   module V1
-    class CharactersController < ApplicationController
+    class CharactersController < BasicApiController
+      before_action :authorize_access_request!
       before_action :set_character, only: %i[ show update destroy ]
 
       # GET /characters
       def index
-        @characters = Character.all
+        @characters = current_user.characters.all
 
         render json: @characters
       end
@@ -17,7 +18,7 @@ module Api
 
       # POST /characters
       def create
-        @character = Character.new(character_params)
+        @character = current_user.characters.build(character_params)
 
         if @character.save
           render json: @character, status: :created, location: @character
@@ -43,7 +44,7 @@ module Api
       private
         # Use callbacks to share common setup or constraints between actions.
         def set_character
-          @character = Character.find(params[:id])
+          @character = current_user.characters.find(params[:id])
         end
 
         # Only allow a list of trusted parameters through.

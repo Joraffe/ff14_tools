@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_30_074938) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_09_210104) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -79,6 +79,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_30_074938) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "permissions", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "raids", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
@@ -104,6 +110,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_30_074938) do
     t.string "password_digest", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "permission_id", null: false
+    t.index ["permission_id"], name: "index_users_on_permission_id"
   end
 
   add_foreign_key "boss_loots", "bosses"
@@ -116,4 +124,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_30_074938) do
   add_foreign_key "gears", "gear_slots"
   add_foreign_key "jobs", "roles"
   add_foreign_key "statics", "users"
+  add_foreign_key "users", "permissions"
 end

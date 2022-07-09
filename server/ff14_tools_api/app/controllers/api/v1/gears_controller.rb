@@ -1,6 +1,7 @@
 module Api
   module V1
-    class GearsController < ApplicationController
+    class GearsController < AdminApiController
+      before_action :require_admin, only: [:create, :update, :destroy]
       before_action :set_gear, only: %i[ show update destroy ]
 
       # GET /gears

@@ -1,11 +1,12 @@
 module Api
   module V1
-    class StaticsController < ApplicationController
+    class StaticsController < BasicApiController
+      before_action :authorize_access_request!
       before_action :set_static, only: %i[ show update destroy ]
 
       # GET /statics
       def index
-        @statics = Static.all
+        @statics = current_user.statics.all
 
         render json: @statics
       end
@@ -17,7 +18,7 @@ module Api
 
       # POST /statics
       def create
-        @static = Static.new(static_params)
+        @static = current_user.statics.build(static_params)
 
         if @static.save
           render json: @static, status: :created, location: @static
@@ -43,7 +44,7 @@ module Api
       private
         # Use callbacks to share common setup or constraints between actions.
         def set_static
-          @static = Static.find(params[:id])
+          @static = current_user.statics.find(params[:id])
         end
 
         # Only allow a list of trusted parameters through.
