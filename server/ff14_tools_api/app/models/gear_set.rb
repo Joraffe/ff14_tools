@@ -1,5 +1,4 @@
 class GearSet < ApplicationRecord
-  has_many :gear_slot
   belongs_to :character
   belongs_to :role
 
